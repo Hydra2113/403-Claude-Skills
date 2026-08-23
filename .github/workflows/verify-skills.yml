@@ -1,0 +1,24 @@
+name: Verify skills
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  verify:
+    name: dist matches skills
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check dist/ is in sync with skills/
+        run: |
+          chmod +x verify.sh build.sh
+          ./verify.sh
+
+      - name: How to fix
+        if: failure()
+        run: |
+          echo "::error::A SKILL.md was changed without repackaging."
+          echo "Run ./build.sh at the repo root, then commit skills/ and dist/ together."

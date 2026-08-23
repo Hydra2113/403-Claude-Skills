@@ -44,6 +44,8 @@ measured.
 ├── dist/                                   Packaged .skill files, install these
 ├── reference/                              Course docs, gitignored, pull from Canvas
 ├── build.sh                                Rebuilds dist/ from skills/
+├── verify.sh                               Checks dist/ is in sync, same check CI runs
+├── .github/workflows/verify-skills.yml     Fails the push if dist/ is stale
 └── README.md
 ```
 
@@ -183,6 +185,16 @@ description never triggers. A failing skill is skipped rather than shipped broke
 script exits non-zero.
 
 On Windows, run it under Git Bash or WSL.
+
+**CI catches it if you forget.** A GitHub Action runs on every push and pull request and fails
+if `dist/` does not match `skills/`. The check is `./verify.sh`, which you can run locally
+before pushing. It compares the SKILL.md *inside* each archive against the source file rather
+than comparing zip bytes, because zips embed timestamps and are never byte-identical between
+builds even when nothing changed.
+
+The Action does not rebuild anything for you. It tells you that you forgot, and you run
+`./build.sh` and push again. That is deliberate: a workflow that silently rewrites the repo
+under you produces merge noise nobody wants during a five-day project.
 
 **Reinstalling.** Installing copies the skill. Rebuilding `dist/` does not update anyone who
 already installed, so a mid-week change needs a message in the team channel telling people to
