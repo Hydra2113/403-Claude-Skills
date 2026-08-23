@@ -1,6 +1,6 @@
 # ENGGEN 403 Team Project Skills
 
-Seven Claude skills built for the 2026 Team Project (speed limits). They encode the rubric,
+Eight Claude skills built for the 2026 Team Project (speed limits). They encode the rubric,
 the deliverable requirements and the business case method so that thirty people working in
 parallel produce consistent output instead of thirty different interpretations.
 
@@ -33,7 +33,8 @@ measured.
 │   │   ├── problem-statement-critic/       Diagnose and fix problem statements
 │   │   └── stakeholder-requirements-csf/   Stakeholders to requirements to CSFs
 │   ├── 2-evidence/
-│   │   └── evidence-ledger/                Classify claims, appraise sources, APA 7
+│   │   ├── evidence-ledger/                Classify claims, appraise sources, APA 7
+│   │   └── impact-research-lanes/          Part (a) economic vs social vs environmental split
 │   ├── 3-options/
 │   │   └── options-screening-dfv/          Long list, CSF screen, DFV, packaging
 │   ├── 4-writing/
@@ -46,6 +47,7 @@ measured.
 ├── build.sh                                Rebuilds dist/ from skills/
 ├── verify.sh                               Checks dist/ is in sync, same check CI runs
 ├── .github/workflows/verify-skills.yml     Fails the push if dist/ is stale
+├── PROJECT-LECTURE-SUMMARY.md              Research strategy, read before researching
 └── README.md
 ```
 
@@ -81,7 +83,7 @@ add the `SKILL.md` files to the project knowledge. You lose automatic triggering
 to tell Claude which one to follow, but the substance still works. Say "follow the problem
 statement critic instructions" and paste your draft.
 
-Install all seven. They are small and they cross-reference each other's stages.
+Install all eight. They are small and they cross-reference each other's stages.
 
 ---
 
@@ -94,6 +96,8 @@ You do not need to name the skill. Just do the work and paste it in.
 | Drafting problem statements | "Here's our draft problem statement, is it any good?" | problem-statement-critic |
 | Stakeholder analysis | "Help me build the stakeholder matrix and requirements table" | stakeholder-requirements-csf |
 | Picking CSFs | "Are these 5 critical success factors traceable to our requirements?" | stakeholder-requirements-csf |
+| Starting research in your lane | "I'm on the environmental impacts, where do I start?" | impact-research-lanes |
+| Merging the three lanes' research | "These three research notes don't line up" | impact-research-lanes |
 | Checking a source or claim | "Does this claim about 30km/h zones hold up?" | evidence-ledger |
 | Building the long list | "Screen these 12 options against our CSFs" | options-screening-dfv |
 | Costing an option | "What order of magnitude is this option?" | options-screening-dfv |
