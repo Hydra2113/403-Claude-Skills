@@ -28,21 +28,19 @@ measured.
 
 ```
 .
-├── skills/
-│   ├── 1-framing/
-│   │   ├── problem-statement-critic/       Diagnose and fix problem statements
-│   │   └── stakeholder-requirements-csf/   Stakeholders to requirements to CSFs
-│   ├── 2-evidence/
-│   │   ├── evidence-ledger/                Classify claims, appraise sources, APA 7
-│   │   └── impact-research-lanes/          Part (a) economic vs social vs environmental split
-│   ├── 3-options/
-│   │   └── options-screening-dfv/          Long list, CSF screen, DFV, packaging
-│   ├── 4-writing/
-│   │   ├── standalone-exec-summary/        The 30% page
-│   │   └── report-house-style/             One voice across many authors
-│   └── 5-review/
-│       └── enggen403-rubric-auditor/       Rubric bands, page budget, format spec
-├── dist/                                   Packaged .skill files, install these
+├── .claude-plugin/
+│   ├── marketplace.json                    Makes this repo a Claude Code marketplace
+│   └── plugin.json                         The plugin manifest
+├── skills/                                 One folder per skill, must be flat
+│   ├── problem-statement-critic/           Diagnose and fix problem statements
+│   ├── stakeholder-requirements-csf/       Stakeholders to requirements to CSFs
+│   ├── evidence-ledger/                    Classify claims, appraise sources, APA 7
+│   ├── impact-research-lanes/              Part (a) economic vs social vs environmental split
+│   ├── options-screening-dfv/              Long list, CSF screen, DFV, packaging
+│   ├── standalone-exec-summary/            The 30% page
+│   ├── report-house-style/                 One voice across many authors
+│   └── enggen403-rubric-auditor/           Rubric bands, page budget, format spec
+├── dist/                                   Packaged .skill files for manual install
 ├── reference/                              Course docs, gitignored, pull from Canvas
 ├── build.sh                                Rebuilds dist/ from skills/
 ├── verify.sh                               Checks dist/ is in sync, same check CI runs
@@ -51,8 +49,9 @@ measured.
 └── README.md
 ```
 
-The numbered folders follow the order you will need them during the week. They are for human
-navigation only. The folder a skill lives in has no effect on how it loads.
+`skills/` has to stay flat. Claude Code only discovers a skill when its folder is a direct
+child of `skills/`, so the skills used to sit in numbered category folders and no longer can.
+The order you need them in during the week is in **Suggested order across the week** below.
 
 Do not commit the brief, the rubric, the deliverable document, CBAX or the example reports.
 They are the university's material. `reference/` is gitignored for that reason.
@@ -61,19 +60,35 @@ They are the university's material. `reference/` is gitignored for that reason.
 
 ## Installing the skills
 
-Grab the `.skill` files from `dist/`. Each one is a small zip containing a single `SKILL.md`.
+**In Claude Code, as a plugin.** This is the one to use if you have Claude Code. It installs
+all eight at once and `/plugin marketplace update` pulls later changes, which the manual
+routes below do not.
+
+```bash
+/plugin marketplace add Hydra2113/403-Claude-Skills
+```
+
+```bash
+/plugin install enggen403@403-claude-skills
+```
+
+If the install summary says `Run /reload-plugins to activate.`, run that. Plugin skills are
+namespaced, so the rubric auditor is `/enggen403:enggen403-rubric-auditor` if you ever need to
+call one by name. Automatic triggering works the same as any other skill.
+
+The rest of this section is for people not using Claude Code.
 
 **On claude.ai or the Claude desktop or mobile app.** Open Settings and find the Skills
 section, then upload the `.skill` file. If your account does not show a Skills section, see
 the fallback below. Exact menu wording moves around between releases, so if you cannot find
 it, search the settings page for "skill" rather than hunting through tabs.
 
-**In Claude Code.** Unzip the skill folder into `~/.claude/skills/` (personal, available
-everywhere) or `.claude/skills/` inside a project (project-scoped). The folder name should
-match the skill name. Claude picks them up on the next session.
+**In Claude Code without the plugin.** Unzip the skill folder into `~/.claude/skills/`
+(personal, available everywhere) or `.claude/skills/` inside a project (project-scoped). The
+folder name should match the skill name. Claude picks them up on the next session. You have to
+repeat this by hand whenever a skill changes, which is why the plugin route is better.
 
 ```bash
-mkdir -p ~/.claude/skills
 unzip dist/problem-statement-critic.skill -d ~/.claude/skills/
 ```
 
@@ -200,10 +215,10 @@ The Action does not rebuild anything for you. It tells you that you forgot, and 
 `./build.sh` and push again. That is deliberate: a workflow that silently rewrites the repo
 under you produces merge noise nobody wants during a five-day project.
 
-**Reinstalling.** Installing copies the skill. Rebuilding `dist/` does not update anyone who
-already installed, so a mid-week change needs a message in the team channel telling people to
-reinstall. Half the team auditing against one version of the rubric auditor and half against
-another is worse than nobody using it.
+**Updating everyone else.** Plugin users run `/plugin marketplace update` and get the change.
+Anyone who installed by hand from `dist/` does not, so a mid-week change still needs a message
+in the team channel telling those people to reinstall. Half the team auditing against one
+version of the rubric auditor and half against another is worse than nobody using it.
 
 If you are iterating heavily and have Claude Code, edit the SKILL.md in `~/.claude/skills/`
 directly. It takes effect next session with no packaging. Copy it back into `skills/` and run

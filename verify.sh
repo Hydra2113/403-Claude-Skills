@@ -12,7 +12,7 @@ fail=0
 tmp=$(mktemp -d)
 trap 'rm -rf "$tmp"' EXIT
 
-for skill_md in skills/*/*/SKILL.md; do
+for skill_md in skills/*/SKILL.md; do
     dir=$(dirname "$skill_md")
     folder=$(basename "$dir")
     archive="dist/$folder.skill"
@@ -61,7 +61,7 @@ done
 for archive in dist/*.skill; do
     [ -e "$archive" ] || continue
     name=$(basename "$archive" .skill)
-    if ! compgen -G "skills/*/$name/SKILL.md" >/dev/null; then
+    if ! compgen -G "skills/$name/SKILL.md" >/dev/null; then
         echo "FAIL  $name: $archive has no source under skills/. Delete it or restore the source."
         fail=1
     fi

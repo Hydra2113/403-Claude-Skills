@@ -7,7 +7,7 @@ cd "$(dirname "$0")"
 mkdir -p dist
 fail=0
 
-for skill_md in skills/*/*/SKILL.md; do
+for skill_md in skills/*/SKILL.md; do
     dir=$(dirname "$skill_md")
     folder=$(basename "$dir")
     declared=$(sed -n 's/^name:[[:space:]]*//p' "$skill_md" | head -1 | tr -d '\r')

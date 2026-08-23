@@ -1,0 +1,17 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "403-claude-skills",
+  "description": "Skills for the ENGGEN 403 Team Project business case (speed limits, 2026).",
+  "owner": {
+    "name": "Hydra2113",
+    "url": "https://github.com/Hydra2113"
+  },
+  "plugins": [
+    {
+      "name": "enggen403",
+      "source": "./",
+      "description": "Eight skills encoding the ENGGEN 403 rubric, deliverable requirements and business case method: problem statements, stakeholders and CSFs, evidence ledger, research lanes, options screening, executive summary, house style and rubric audit.",
+      "category": "productivity"
+    }
+  ]
+}

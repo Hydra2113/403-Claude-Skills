@@ -1,0 +1,11 @@
+{
+  "name": "enggen403",
+  "version": "1.0.0",
+  "description": "Skills for the ENGGEN 403 Team Project business case (speed limits, 2026). They check, constrain and structure work you have already done; they do not write the report.",
+  "author": {
+    "name": "Hydra2113",
+    "url": "https://github.com/Hydra2113"
+  },
+  "repository": "https://github.com/Hydra2113/403-Claude-Skills",
+  "keywords": ["enggen403", "business-case", "rubric", "research", "university-of-auckland"]
+}
